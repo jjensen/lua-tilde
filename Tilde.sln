@@ -1,0 +1,112 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorePlugins", "source\CorePlugins\CorePlugins.csproj", "{4DD01681-593A-43DD-BFBE-B405C8D959F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{0D01E013-9AAF-4C0D-A1C5-F36ED5466CFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "source\Framework\Framework.csproj", "{3B60B35B-C252-4B2C-A11E-853C3742A357}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TildeApp", "source\TildeApp\TildeApp.csproj", "{B901025F-DFAF-4F2A-94AF-FD59E9E0406D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{D382E11B-5D50-49F7-8B8F-F37BDB92CB88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScintillaNET", "lib\ScintillaNET\v6-b1.1\ScintillaNET.csproj", "{F9B6DABD-BBC1-4638-8CE6-A5C9506BFDCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsUI", "lib\WinFormsUI\v2.2\WinFormsUI.csproj", "{C75532C4-765B-418E-B09B-46D36B2ABDB1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{6FEDDDF1-5098-4343-8626-125BD95A893E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuaDebugger", "plugins\LuaDebugger\LuaDebugger.csproj", "{04D54B3A-51CA-4D74-987E-B40B2E0D8512}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuaSocketConnection", "plugins\LuaSocketConnection\LuaSocketConnection.csproj", "{7CCE4A4C-1E9D-4A58-8898-55B03CF8C992}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "source\Setup\Setup.vdproj", "{0736BB49-5D45-4F32-889A-9A724004BE5A}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 9
+		SccProjectUniqueName0 = source\\Setup\\Setup.vdproj
+		SccProjectTopLevelParentUniqueName0 = Tilde.sln
+		SccLocalPath0 = .
+		SccProjectFilePathRelativizedFromConnection0 = source\\Setup\\
+		SccProjectUniqueName1 = lib\\ScintillaNET\\v6-b1.1\\ScintillaNET.csproj
+		SccProjectTopLevelParentUniqueName1 = Tilde.sln
+		SccLocalPath1 = .
+		SccProjectFilePathRelativizedFromConnection1 = lib\\ScintillaNET\\v6-b1.1\\
+		SccProjectUniqueName2 = source\\Framework\\Framework.csproj
+		SccProjectTopLevelParentUniqueName2 = Tilde.sln
+		SccLocalPath2 = .
+		SccProjectFilePathRelativizedFromConnection2 = source\\Framework\\
+		SccProjectUniqueName3 = source\\TildeApp\\TildeApp.csproj
+		SccProjectTopLevelParentUniqueName3 = Tilde.sln
+		SccLocalPath3 = .
+		SccProjectFilePathRelativizedFromConnection3 = source\\TildeApp\\
+		SccProjectUniqueName4 = source\\CorePlugins\\CorePlugins.csproj
+		SccProjectTopLevelParentUniqueName4 = Tilde.sln
+		SccLocalPath4 = .
+		SccProjectFilePathRelativizedFromConnection4 = source\\CorePlugins\\
+		SccProjectUniqueName5 = lib\\WinFormsUI\\v2.2\\WinFormsUI.csproj
+		SccProjectTopLevelParentUniqueName5 = Tilde.sln
+		SccLocalPath5 = .
+		SccProjectFilePathRelativizedFromConnection5 = lib\\WinFormsUI\\v2.2\\
+		SccProjectUniqueName6 = plugins\\LuaDebugger\\LuaDebugger.csproj
+		SccProjectTopLevelParentUniqueName6 = Tilde.sln
+		SccLocalPath6 = .
+		SccProjectFilePathRelativizedFromConnection6 = plugins\\LuaDebugger\\
+		SccProjectUniqueName7 = plugins\\LuaSocketConnection\\LuaSocketConnection.csproj
+		SccProjectTopLevelParentUniqueName7 = Tilde.sln
+		SccLocalPath7 = .
+		SccProjectFilePathRelativizedFromConnection7 = plugins\\LuaSocketConnection\\
+		SccLocalPath8 = .
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DD01681-593A-43DD-BFBE-B405C8D959F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DD01681-593A-43DD-BFBE-B405C8D959F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DD01681-593A-43DD-BFBE-B405C8D959F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DD01681-593A-43DD-BFBE-B405C8D959F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B60B35B-C252-4B2C-A11E-853C3742A357}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B60B35B-C252-4B2C-A11E-853C3742A357}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B60B35B-C252-4B2C-A11E-853C3742A357}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B60B35B-C252-4B2C-A11E-853C3742A357}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B901025F-DFAF-4F2A-94AF-FD59E9E0406D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B901025F-DFAF-4F2A-94AF-FD59E9E0406D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B901025F-DFAF-4F2A-94AF-FD59E9E0406D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B901025F-DFAF-4F2A-94AF-FD59E9E0406D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9B6DABD-BBC1-4638-8CE6-A5C9506BFDCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9B6DABD-BBC1-4638-8CE6-A5C9506BFDCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9B6DABD-BBC1-4638-8CE6-A5C9506BFDCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9B6DABD-BBC1-4638-8CE6-A5C9506BFDCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C75532C4-765B-418E-B09B-46D36B2ABDB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C75532C4-765B-418E-B09B-46D36B2ABDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C75532C4-765B-418E-B09B-46D36B2ABDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C75532C4-765B-418E-B09B-46D36B2ABDB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04D54B3A-51CA-4D74-987E-B40B2E0D8512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04D54B3A-51CA-4D74-987E-B40B2E0D8512}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04D54B3A-51CA-4D74-987E-B40B2E0D8512}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04D54B3A-51CA-4D74-987E-B40B2E0D8512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CCE4A4C-1E9D-4A58-8898-55B03CF8C992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CCE4A4C-1E9D-4A58-8898-55B03CF8C992}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CCE4A4C-1E9D-4A58-8898-55B03CF8C992}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CCE4A4C-1E9D-4A58-8898-55B03CF8C992}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0736BB49-5D45-4F32-889A-9A724004BE5A}.Debug|Any CPU.ActiveCfg = Debug
+		{0736BB49-5D45-4F32-889A-9A724004BE5A}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4DD01681-593A-43DD-BFBE-B405C8D959F7} = {0D01E013-9AAF-4C0D-A1C5-F36ED5466CFE}
+		{3B60B35B-C252-4B2C-A11E-853C3742A357} = {0D01E013-9AAF-4C0D-A1C5-F36ED5466CFE}
+		{B901025F-DFAF-4F2A-94AF-FD59E9E0406D} = {0D01E013-9AAF-4C0D-A1C5-F36ED5466CFE}
+		{0736BB49-5D45-4F32-889A-9A724004BE5A} = {0D01E013-9AAF-4C0D-A1C5-F36ED5466CFE}
+		{F9B6DABD-BBC1-4638-8CE6-A5C9506BFDCB} = {D382E11B-5D50-49F7-8B8F-F37BDB92CB88}
+		{C75532C4-765B-418E-B09B-46D36B2ABDB1} = {D382E11B-5D50-49F7-8B8F-F37BDB92CB88}
+		{04D54B3A-51CA-4D74-987E-B40B2E0D8512} = {6FEDDDF1-5098-4343-8626-125BD95A893E}
+		{7CCE4A4C-1E9D-4A58-8898-55B03CF8C992} = {6FEDDDF1-5098-4343-8626-125BD95A893E}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,76 @@
+--- lua/v5.1.3/src/ldebug.c	2008/05/13 12:41:06
++++ lua/v5.1.3/src/ldebug.c	2008/11/18 11:09:05
+@@ -146,6 +146,24 @@
+   return name;
+ }
+ 
++LUA_API int lua_getvararg (lua_State *L, const lua_Debug *ar, int n) {
++  CallInfo *ci = L->base_ci + ar->i_ci;
++  if(isLfunction(ci->func))
++  {
++    Closure *cl = (Closure *) clvalue(ci->func);
++    StkId firstVarArg = ci->func + cl->l.p->numparams + 1;
++    int numVarArg = (int) (ci->base - firstVarArg);
++    if(n <= numVarArg)
++    {
++      lua_lock(L);
++      luaA_pushobject(L, firstVarArg + n - 1);
++	  lua_unlock(L);
++      return n;
++    }
++  }
++  return 0;
++}
++
+ 
+ static void funcinfo (lua_Debug *ar, Closure *cl) {
+   if (cl->c.isC) {
+@@ -608,6 +626,8 @@
+     incr_top(L);
+     luaD_call(L, L->top - 2, 1);  /* call it */
+   }
++  if (L->hookmask & LUA_MASKERROR)
++    luaD_callhook(L, LUA_HOOKERROR, -1);
+   luaD_throw(L, LUA_ERRRUN);
+ }
+ 
+--- lua/v5.1.3/src/lua.h	2008/05/13 12:41:06
++++ lua/v5.1.3/src/lua.h	2008/11/18 11:09:05
+@@ -313,6 +313,7 @@
+ #define LUA_HOOKLINE	2
+ #define LUA_HOOKCOUNT	3
+ #define LUA_HOOKTAILRET 4
++#define LUA_HOOKERROR	5
+ 
+ 
+ /*
+@@ -322,6 +323,7 @@
+ #define LUA_MASKRET	(1 << LUA_HOOKRET)
+ #define LUA_MASKLINE	(1 << LUA_HOOKLINE)
+ #define LUA_MASKCOUNT	(1 << LUA_HOOKCOUNT)
++#define LUA_MASKERROR	(1 << LUA_HOOKERROR)
+ 
+ typedef struct lua_Debug lua_Debug;  /* activation record */
+ 
+@@ -336,6 +338,7 @@
+ LUA_API const char *lua_setlocal (lua_State *L, const lua_Debug *ar, int n);
+ LUA_API const char *lua_getupvalue (lua_State *L, int funcindex, int n);
+ LUA_API const char *lua_setupvalue (lua_State *L, int funcindex, int n);
++LUA_API int lua_getvararg (lua_State *L, const lua_Debug *ar, int n);
+ 
+ LUA_API int lua_sethook (lua_State *L, lua_Hook func, int mask, int count);
+ LUA_API lua_Hook lua_gethook (lua_State *L);
+--- lua/v5.1.3/src/luaconf.h	2008/05/13 12:41:06
++++ lua/v5.1.3/src/luaconf.h	2008/11/18 11:09:05
+@@ -161,7 +161,11 @@
+ 
+ #else
+ 
++#if defined(__cplusplus)
++#define LUA_API		extern "C"
++#else
+ #define LUA_API		extern
++#endif
+ 
+ #endif
+ 

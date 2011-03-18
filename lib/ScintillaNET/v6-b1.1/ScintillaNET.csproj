@@ -1,0 +1,174 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F9B6DABD-BBC1-4638-8CE6-A5C9506BFDCB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Scintilla</RootNamespace>
+    <AssemblyName>ScintillaNET</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration\Interfaces\ILanguageConfigCollection.cs" />
+    <Compile Include="Configuration\Interfaces\ILanguageConfig.cs" />
+    <Compile Include="Configuration\Interfaces\ILexerConfig.cs" />
+    <Compile Include="Configuration\Interfaces\ILexerConfigCollection.cs" />
+    <Compile Include="Configuration\Interfaces\ILexerStyle.cs" />
+    <Compile Include="Configuration\Interfaces\IMenuItemConfig.cs" />
+    <Compile Include="Configuration\Interfaces\IScintillaConfig.cs" />
+    <Compile Include="Configuration\Interfaces\IScintillaConfigProvider.cs" />
+    <Compile Include="Configuration\LanguageConfig.cs" />
+    <Compile Include="Configuration\LanguageConfigCollection.cs" />
+    <Compile Include="Configuration\LexerConfig.cs" />
+    <Compile Include="Configuration\LexerConfigCollection.cs" />
+    <Compile Include="Configuration\LexerStyle.cs" />
+    <Compile Include="Configuration\MenuItemConfig.cs" />
+    <Compile Include="Configuration\PropertiesReader.cs" />
+    <Compile Include="Configuration\ScintillaConfig.cs" />
+    <Compile Include="Configuration\SciTE\SciTEProperties.cs" />
+    <Compile Include="Enums.generated.cs" />
+    <Compile Include="EventArgs.cs" />
+    <Compile Include="Forms\FindReplace\FindControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\FindReplace\FindControl.Designer.cs">
+      <DependentUpon>FindControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FindReplace\FindForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FindReplace\FindForm.Designer.cs">
+      <DependentUpon>FindForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FindReplace\ReplaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FindReplace\ReplaceForm.Designer.cs">
+      <DependentUpon>ReplaceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FindReplace\SearchCriteria.cs" />
+    <Compile Include="Forms\FindReplace\ReplaceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\FindReplace\ReplaceControl.Designer.cs">
+      <DependentUpon>ReplaceControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FindReplace\SearchHelper.cs" />
+    <Compile Include="Forms\GoToLine\GoToLineDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GoToLine\GoToLineDialog.Designer.cs">
+      <DependentUpon>GoToLineDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Indexer.cs" />
+    <Compile Include="Legacy\configfile.cs" />
+    <Compile Include="Legacy\configitem.cs" />
+    <Compile Include="Legacy\configurationutility.cs" />
+    <Compile Include="Legacy\Include.cs" />
+    <Compile Include="Legacy\KeywordClass.cs" />
+    <Compile Include="Legacy\Language.cs" />
+    <Compile Include="Legacy\Lexer.cs" />
+    <Compile Include="Legacy\Scintilla.cs" />
+    <Compile Include="Legacy\StyleClass.cs" />
+    <Compile Include="Legacy\UseKeyword.cs" />
+    <Compile Include="Legacy\UseStyle.cs" />
+    <Compile Include="Legacy\Value.cs" />
+    <Compile Include="Lexers.generated.cs" />
+    <Compile Include="Printing\PageInformation.cs" />
+    <Compile Include="Range.cs" />
+    <Compile Include="ScintillaControl.generated.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Printing\PageSettings.cs" />
+    <Compile Include="Printing\PrintDocument.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Structures.cs" />
+    <Compile Include="ScintillaControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ScintillaControl.Designer.cs">
+      <DependentUpon>ScintillaControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities.cs" />
+    <Compile Include="NativeMethods.cs" />
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\FindReplace\FindControl.resx">
+      <DependentUpon>FindControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FindReplace\FindForm.resx">
+      <DependentUpon>FindForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FindReplace\ReplaceControl.resx">
+      <DependentUpon>ReplaceControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FindReplace\ReplaceForm.resx">
+      <DependentUpon>ReplaceForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GoToLine\GoToLineDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GoToLineDialog.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SciLexer.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\Printing\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

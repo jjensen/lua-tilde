@@ -1,0 +1,292 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{04D54B3A-51CA-4D74-987E-B40B2E0D8512}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tilde.LuaDebugger</RootNamespace>
+    <AssemblyName>LuaDebugger.plugin</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutocompleteOptionsEvent.cs" />
+    <Compile Include="AutocompletePopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutocompletePopup.Designer.cs">
+      <DependentUpon>AutocompletePopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BreakpointDetails.cs" />
+    <Compile Include="BreakpointsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BreakpointsWindow.Designer.cs">
+      <DependentUpon>BreakpointsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BreakpointUpdateEvent.cs" />
+    <Compile Include="CallstackUpdateEvent.cs" />
+    <Compile Include="CallstackWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CallstackWindow.Designer.cs">
+      <DependentUpon>CallstackWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConsoleWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConsoleWindow.Designer.cs">
+      <DependentUpon>ConsoleWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DebuggerOptions.cs" />
+    <Compile Include="ExMessageEvent.cs" />
+    <Compile Include="HostInfo.cs" />
+    <Compile Include="IConnection.cs" />
+    <Compile Include="PendingDownloadsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PendingDownloadsWindow.Designer.cs">
+      <DependentUpon>PendingDownloadsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Protocol.cs" />
+    <Compile Include="ProtocolException.cs" />
+    <Compile Include="ReceiveMessageBuffer.cs" />
+    <Compile Include="SendMessageBuffer.cs" />
+    <Compile Include="SnippetResultEvent.cs" />
+    <Compile Include="StatusMessageEvent.cs" />
+    <Compile Include="DebuggerStatusDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DebuggerStatusDialog.Designer.cs">
+      <DependentUpon>DebuggerStatusDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DebugManager.cs" />
+    <Compile Include="DebugPrintEvent.cs" />
+    <Compile Include="ErrorMessageEvent.cs" />
+    <Compile Include="ExecutionMode.cs" />
+    <Compile Include="FileUploadEvent.cs" />
+    <Compile Include="ITransport.cs" />
+    <Compile Include="LocalsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LocalsWindow.Designer.cs">
+      <DependentUpon>LocalsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LuaValue.cs" />
+    <Compile Include="NewWatchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewWatchDialog.Designer.cs">
+      <DependentUpon>NewWatchDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LuaProfileResultsDocument.cs" />
+    <Compile Include="LuaProfileResultsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LuaProfileResultsView.Designer.cs">
+      <DependentUpon>LuaProfileResultsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ShutdownException.cs" />
+    <Compile Include="TargetConnectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TargetConnectionDialog.designer.cs">
+      <DependentUpon>TargetConnectionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TargetDisconnectedEvent.cs" />
+    <Compile Include="TargetException.cs" />
+    <Compile Include="TargetState.cs" />
+    <Compile Include="ThreadDetails.cs" />
+    <Compile Include="Target.cs" />
+    <Compile Include="ThreadsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThreadsWindow.Designer.cs">
+      <DependentUpon>ThreadsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThreadUpdateEvent.cs" />
+    <Compile Include="ValueCache.cs" />
+    <Compile Include="ValueCachedEvent.cs" />
+    <Compile Include="VariableDetails.cs" />
+    <Compile Include="VariablesWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VariablesWindow.Designer.cs">
+      <DependentUpon>VariablesWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LuaPlugin.cs" />
+    <Compile Include="LuaScriptDocument.cs" />
+    <Compile Include="LuaScriptView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LuaScriptView.designer.cs">
+      <DependentUpon>LuaScriptView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindowComponents.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MainWindowComponents.designer.cs">
+      <DependentUpon>MainWindowComponents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MessageQueue.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateUpdateEvent.cs" />
+    <Compile Include="TransportClassAttribute.cs" />
+    <Compile Include="VariableUpdateEvent.cs" />
+    <Compile Include="WatchDetails.cs" />
+    <Compile Include="WatchWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WatchWindow.Designer.cs">
+      <DependentUpon>WatchWindow.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BreakedThread.bmp" />
+    <None Include="Resources\Break.bmp" />
+    <Content Include="Resources\Breakpoint.bmp" />
+    <None Include="Resources\BrwRefresh.bmp" />
+    <None Include="Resources\Connect.bmp" />
+    <None Include="Resources\Connect.gif" />
+    <None Include="Resources\CurrentFrame.bmp" />
+    <Content Include="Resources\ConsoleWindowTemplate.htm" />
+    <None Include="Resources\Disconnect.bmp" />
+    <Content Include="Resources\EmptyBreakpoint.bmp" />
+    <None Include="Resources\Percentage.bmp" />
+    <None Include="Resources\FolderClosed_16x16.bmp" />
+    <None Include="Resources\SystrayConnected.ico" />
+    <None Include="Resources\SystrayDisconnected.ico" />
+    <None Include="Resources\Run.bmp" />
+    <None Include="Resources\StartProfile.bmp" />
+    <None Include="Resources\Stop.bmp" />
+    <Content Include="Resources\tree_closed.bmp" />
+    <Content Include="Resources\tree_open.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AutocompletePopup.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AutocompletePopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BreakpointsWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>BreakpointsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CallstackWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CallstackWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConsoleWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ConsoleWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DebuggerStatusDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DebuggerStatusDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocalsWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LocalsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LuaProfileResultsView.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LuaProfileResultsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewWatchDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>NewWatchDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PendingDownloadsWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PendingDownloadsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TargetConnectionDialog.resx">
+      <DependentUpon>TargetConnectionDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThreadsWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ThreadsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VariablesWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>VariablesWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LuaScriptView.resx">
+      <DependentUpon>LuaScriptView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainWindowComponents.resx">
+      <DependentUpon>MainWindowComponents.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WatchWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WatchWindow.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\source\CorePlugins\CorePlugins.csproj">
+      <Project>{4DD01681-593A-43DD-BFBE-B405C8D959F7}</Project>
+      <Name>CorePlugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\source\Framework\Framework.csproj">
+      <Project>{3B60B35B-C252-4B2C-A11E-853C3742A357}</Project>
+      <Name>Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\ScintillaNET\v6-b1.1\ScintillaNET.csproj">
+      <Project>{F9B6DABD-BBC1-4638-8CE6-A5C9506BFDCB}</Project>
+      <Name>ScintillaNET</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\WinFormsUI\v2.2\WinFormsUI.csproj">
+      <Project>{C75532C4-765B-418E-B09B-46D36B2ABDB1}</Project>
+      <Name>WinFormsUI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

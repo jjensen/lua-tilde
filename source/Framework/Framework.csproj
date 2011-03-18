@@ -1,0 +1,178 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3B60B35B-C252-4B2C-A11E-853C3742A357}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tilde.Framework</RootNamespace>
+    <AssemblyName>Framework</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controller\ApplicationOptions.cs" />
+    <Compile Include="Controller\CommandLineArguments.cs" />
+    <Compile Include="Controller\DirectoryWatcher.cs" />
+    <Compile Include="Controller\FileWatcher.cs" />
+    <Compile Include="Controller\IManager.cs" />
+    <Compile Include="Controller\IOptions.cs" />
+    <Compile Include="Controller\IOptionsDatabase.cs" />
+    <Compile Include="Controller\IPlugin.cs" />
+    <Compile Include="Controller\ITransaction.cs" />
+    <Compile Include="Controller\OptionsGridPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\OptionsGridPanel.Designer.cs">
+      <DependentUpon>OptionsGridPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\OptionsManager.cs" />
+    <Compile Include="Controller\OptionsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controller\OptionsPanel.Designer.cs">
+      <DependentUpon>OptionsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\OptionsPanelAttribute.cs" />
+    <Compile Include="Controller\PluginCollection.cs" />
+    <Compile Include="Controller\RegistryOptionsDatabase.cs" />
+    <Compile Include="Controller\TransactionGroup.cs" />
+    <Compile Include="Controller\TransactionManager.cs" />
+    <Compile Include="Controller\XmlOptionsDatabase.cs" />
+    <Compile Include="Controls\DBListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\DBListView.designer.cs">
+      <DependentUpon>DBListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MessageBoxEx.cs" />
+    <Compile Include="Controls\MyWebBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\MyWebBrowser.Designer.cs">
+      <DependentUpon>MyWebBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ShellAPI.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\SystemImageList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\TreeTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TreeTable.designer.cs">
+      <DependentUpon>TreeTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TreeTableNode.cs" />
+    <Compile Include="Controls\TreeTableSubItem.cs" />
+    <Compile Include="Controls\Win32.cs" />
+    <Compile Include="Controls\WindowsHook.cs" />
+    <Compile Include="Model\Document.cs" />
+    <Compile Include="Model\DocumentClassAttribute.cs" />
+    <Compile Include="Model\ListCollection.cs" />
+    <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\ProjectClassAttribute.cs" />
+    <Compile Include="Model\ProjectDocument.cs" />
+    <Compile Include="Model\ProjectDocumentCollection.cs" />
+    <Compile Include="Model\ProjectHierarchy\DocumentItem.cs" />
+    <Compile Include="Model\ProjectHierarchy\Folder.cs" />
+    <Compile Include="Model\ProjectHierarchy\ProjectItem.cs" />
+    <Compile Include="Model\ProjectHierarchy\ProjectItemCollection.cs" />
+    <Compile Include="Model\ProjectHierarchy\ProjectDocumentItem.cs" />
+    <Compile Include="Model\ProjectHierarchy\RootItem.cs" />
+    <Compile Include="Model\PropertyChangeEvent.cs" />
+    <Compile Include="Model\ReadOnlyDocumentException.cs" />
+    <Compile Include="PathUtils.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controller\IVersionController.cs" />
+    <Compile Include="ReflectionUtils.cs" />
+    <Compile Include="View\DocumentView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DocumentView.Designer.cs">
+      <DependentUpon>DocumentView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\PersistWindowComponent.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\ToolWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ToolWindow.Designer.cs">
+      <DependentUpon>ToolWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ToolWindowAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controller\OptionsGridPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>OptionsGridPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TreeTable.resx">
+      <DependentUpon>TreeTable.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DocumentView.resx">
+      <DependentUpon>DocumentView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ToolWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ToolWindow.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib\WinFormsUI\v2.2\WinFormsUI.csproj">
+      <Project>{C75532C4-765B-418E-B09B-46D36B2ABDB1}</Project>
+      <Name>WinFormsUI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vcproj.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vcproj.xsx">
+      <DependentUpon>vcproj.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
