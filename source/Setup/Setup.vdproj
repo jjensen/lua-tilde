@@ -7,10 +7,10 @@
 "LanguageId" = "3:1033"
 "CodePage" = "3:1252"
 "UILanguageId" = "3:1033"
-"SccProjectName" = "8:Perforce Project"
-"SccLocalPath" = "8:..\\.."
+"SccProjectName" = "8:"
+"SccLocalPath" = "8:"
 "SccAuxPath" = "8:"
-"SccProvider" = "8:MSSCCI:Perforce SCM"
+"SccProvider" = "8:"
     "Hierarchy"
     {
         "Entry"
@@ -28,13 +28,7 @@
         "Entry"
         {
         "MsmKey" = "8:_1AD91D4128C13E9362A9EDECD87D3F77"
-        "OwnerKey" = "8:_F32FCA3F668240B8BC45B181B32A571E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1AD91D4128C13E9362A9EDECD87D3F77"
-        "OwnerKey" = "8:_4E7B8E6F97524FD591CAF058D86E5007"
+        "OwnerKey" = "8:_F0490539ED12D1CED55EB8A2F406AEBE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -46,7 +40,13 @@
         "Entry"
         {
         "MsmKey" = "8:_1AD91D4128C13E9362A9EDECD87D3F77"
-        "OwnerKey" = "8:_F0490539ED12D1CED55EB8A2F406AEBE"
+        "OwnerKey" = "8:_4E7B8E6F97524FD591CAF058D86E5007"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1AD91D4128C13E9362A9EDECD87D3F77"
+        "OwnerKey" = "8:_F32FCA3F668240B8BC45B181B32A571E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -76,13 +76,13 @@
         "Entry"
         {
         "MsmKey" = "8:_5B8E0C24FAF52A94B9E56FD25335B7BE"
-        "OwnerKey" = "8:_F32FCA3F668240B8BC45B181B32A571E"
+        "OwnerKey" = "8:_F0490539ED12D1CED55EB8A2F406AEBE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_5B8E0C24FAF52A94B9E56FD25335B7BE"
-        "OwnerKey" = "8:_F0490539ED12D1CED55EB8A2F406AEBE"
+        "OwnerKey" = "8:_F32FCA3F668240B8BC45B181B32A571E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -106,19 +106,7 @@
         "Entry"
         {
         "MsmKey" = "8:_BCF91ADF0FACF71956509CDB057FBD4F"
-        "OwnerKey" = "8:_F32FCA3F668240B8BC45B181B32A571E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BCF91ADF0FACF71956509CDB057FBD4F"
-        "OwnerKey" = "8:_CCF58D2B90FC4C17821D8DCC93BCF6F1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BCF91ADF0FACF71956509CDB057FBD4F"
-        "OwnerKey" = "8:_4E7B8E6F97524FD591CAF058D86E5007"
+        "OwnerKey" = "8:_281EB0DEC28A41239020284328A6ED0D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -130,7 +118,19 @@
         "Entry"
         {
         "MsmKey" = "8:_BCF91ADF0FACF71956509CDB057FBD4F"
-        "OwnerKey" = "8:_281EB0DEC28A41239020284328A6ED0D"
+        "OwnerKey" = "8:_4E7B8E6F97524FD591CAF058D86E5007"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BCF91ADF0FACF71956509CDB057FBD4F"
+        "OwnerKey" = "8:_CCF58D2B90FC4C17821D8DCC93BCF6F1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BCF91ADF0FACF71956509CDB057FBD4F"
+        "OwnerKey" = "8:_F32FCA3F668240B8BC45B181B32A571E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -166,25 +166,13 @@
         "Entry"
         {
         "MsmKey" = "8:_F692746F6D3728E9EBE431AE92BFF567"
-        "OwnerKey" = "8:_F32FCA3F668240B8BC45B181B32A571E"
+        "OwnerKey" = "8:_5B8E0C24FAF52A94B9E56FD25335B7BE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_F692746F6D3728E9EBE431AE92BFF567"
-        "OwnerKey" = "8:_CCF58D2B90FC4C17821D8DCC93BCF6F1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F692746F6D3728E9EBE431AE92BFF567"
-        "OwnerKey" = "8:_4E7B8E6F97524FD591CAF058D86E5007"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F692746F6D3728E9EBE431AE92BFF567"
-        "OwnerKey" = "8:_381870D9F2024037BF31E83886B48E65"
+        "OwnerKey" = "8:_F0490539ED12D1CED55EB8A2F406AEBE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -196,13 +184,25 @@
         "Entry"
         {
         "MsmKey" = "8:_F692746F6D3728E9EBE431AE92BFF567"
-        "OwnerKey" = "8:_F0490539ED12D1CED55EB8A2F406AEBE"
+        "OwnerKey" = "8:_381870D9F2024037BF31E83886B48E65"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_F692746F6D3728E9EBE431AE92BFF567"
-        "OwnerKey" = "8:_5B8E0C24FAF52A94B9E56FD25335B7BE"
+        "OwnerKey" = "8:_4E7B8E6F97524FD591CAF058D86E5007"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F692746F6D3728E9EBE431AE92BFF567"
+        "OwnerKey" = "8:_CCF58D2B90FC4C17821D8DCC93BCF6F1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F692746F6D3728E9EBE431AE92BFF567"
+        "OwnerKey" = "8:_F32FCA3F668240B8BC45B181B32A571E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -214,25 +214,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F0490539ED12D1CED55EB8A2F406AEBE"
+        "OwnerKey" = "8:_281EB0DEC28A41239020284328A6ED0D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5B8E0C24FAF52A94B9E56FD25335B7BE"
+        "OwnerKey" = "8:_381870D9F2024037BF31E83886B48E65"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1AD91D4128C13E9362A9EDECD87D3F77"
+        "OwnerKey" = "8:_CCF58D2B90FC4C17821D8DCC93BCF6F1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BCF91ADF0FACF71956509CDB057FBD4F"
+        "OwnerKey" = "8:_F32FCA3F668240B8BC45B181B32A571E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -244,25 +244,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F32FCA3F668240B8BC45B181B32A571E"
+        "OwnerKey" = "8:_BCF91ADF0FACF71956509CDB057FBD4F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_CCF58D2B90FC4C17821D8DCC93BCF6F1"
+        "OwnerKey" = "8:_1AD91D4128C13E9362A9EDECD87D3F77"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_381870D9F2024037BF31E83886B48E65"
+        "OwnerKey" = "8:_5B8E0C24FAF52A94B9E56FD25335B7BE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_281EB0DEC28A41239020284328A6ED0D"
+        "OwnerKey" = "8:_F0490539ED12D1CED55EB8A2F406AEBE"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -352,7 +352,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "Version" = "8:2.0.50727"
+                "FrameworkVersion" = "8:2.0.50727"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=9832"
                 }
@@ -387,11 +387,6 @@
             "AssemblyAsmDisplayName" = "8:ScintillaNET, Version=1.0.3245.20095, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_1AD91D4128C13E9362A9EDECD87D3F77"
-                    {
-                    "Name" = "8:ScintillaNET.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ScintillaNET.dll"
             "TargetName" = "8:"
@@ -418,11 +413,6 @@
             "AssemblyAsmDisplayName" = "8:CorePlugins.plugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_5B8E0C24FAF52A94B9E56FD25335B7BE"
-                    {
-                    "Name" = "8:CorePlugins.plugin.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:CorePlugins.plugin.dll"
             "TargetName" = "8:"
@@ -489,11 +479,6 @@
             "AssemblyAsmDisplayName" = "8:Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_BCF91ADF0FACF71956509CDB057FBD4F"
-                    {
-                    "Name" = "8:Framework.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Framework.dll"
             "TargetName" = "8:"
@@ -540,11 +525,6 @@
             "AssemblyAsmDisplayName" = "8:LuaDebugger.plugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F0490539ED12D1CED55EB8A2F406AEBE"
-                    {
-                    "Name" = "8:LuaDebugger.plugin.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:LuaDebugger.plugin.dll"
             "TargetName" = "8:"
@@ -571,11 +551,6 @@
             "AssemblyAsmDisplayName" = "8:WeifenLuo.WinFormsUI.Docking, Version=2.2.3245.20095, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F692746F6D3728E9EBE431AE92BFF567"
-                    {
-                    "Name" = "8:WeifenLuo.WinFormsUI.Docking.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:WeifenLuo.WinFormsUI.Docking.dll"
             "TargetName" = "8:"
@@ -667,6 +642,7 @@
         "MsiBootstrapper"
         {
         "LangId" = "3:1033"
+        "RequiresElevation" = "11:FALSE"
         }
         "Product"
         {
@@ -675,6 +651,7 @@
         "ProductCode" = "8:{DA4CABAB-AD9A-4E65-8216-2E09B2807B7C}"
         "PackageCode" = "8:{3353F96A-94E7-4346-AD76-F0BF6C244F6C}"
         "UpgradeCode" = "8:{145C8ACF-89CB-46EA-9162-71BF3805F983}"
+        "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
@@ -1235,7 +1212,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_281EB0DEC28A41239020284328A6ED0D"
             {
-            "SourcePath" = "8:..\\..\\plugins\\LuaSocketConnection\\obj\\Release\\LuaSocketConnection.plugin.dll"
+            "SourcePath" = "8:..\\..\\plugins\\LuaSocketConnection\\obj\\Debug\\LuaSocketConnection.plugin.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EFC7A60B1832409A92A279A64AE10010"
@@ -1263,7 +1240,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_381870D9F2024037BF31E83886B48E65"
             {
-            "SourcePath" = "8:..\\Framework\\obj\\Release\\Framework.dll"
+            "SourcePath" = "8:..\\Framework\\obj\\Debug\\Framework.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EFC7A60B1832409A92A279A64AE10010"
@@ -1375,7 +1352,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4E7B8E6F97524FD591CAF058D86E5007"
             {
-            "SourcePath" = "8:..\\CorePlugins\\obj\\Release\\CorePlugins.plugin.dll"
+            "SourcePath" = "8:..\\CorePlugins\\obj\\Debug\\CorePlugins.plugin.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EFC7A60B1832409A92A279A64AE10010"
@@ -1627,7 +1604,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CCF58D2B90FC4C17821D8DCC93BCF6F1"
             {
-            "SourcePath" = "8:..\\TildeApp\\obj\\Release\\Tilde.exe"
+            "SourcePath" = "8:..\\TildeApp\\obj\\Debug\\Tilde.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EFC7A60B1832409A92A279A64AE10010"
@@ -1739,7 +1716,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F32FCA3F668240B8BC45B181B32A571E"
             {
-            "SourcePath" = "8:..\\..\\plugins\\LuaDebugger\\obj\\Release\\LuaDebugger.plugin.dll"
+            "SourcePath" = "8:..\\..\\plugins\\LuaDebugger\\obj\\Debug\\LuaDebugger.plugin.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EFC7A60B1832409A92A279A64AE10010"
@@ -1765,9 +1742,6 @@
                 {
                 }
             }
-        }
-        "VJSharpPlugin"
-        {
         }
     }
 }

@@ -5,9 +5,6 @@
 	Name="WindowsDemo"
 	ProjectGUID="{D2A89039-56F7-43F6-BDF6-8A48D7E0F286}"
 	RootNamespace="WindowsDemo"
-	SccProjectName="Perforce Project"
-	SccLocalPath="..\..\.."
-	SccProvider="MSSCCI:Perforce SCM"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
