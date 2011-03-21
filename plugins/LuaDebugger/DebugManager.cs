@@ -742,6 +742,11 @@ namespace Tilde.LuaDebugger
 			Document doc = docItem != null ? Manager.OpenDocument(docItem) : null;
 			if (doc == null)
 			{
+				doc = Manager.OpenDocument(file);
+			}
+
+			if (doc == null)
+			{
 				MessageBox.Show(Manager.MainWindow, String.Format("No source is available for \r\n\r\n{0}", file), "File not found", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 			}
 			else
