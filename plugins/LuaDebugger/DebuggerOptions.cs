@@ -116,7 +116,7 @@ namespace Tilde.LuaDebugger
 
 		[Category("Debugger")]
 		[Description("The target will break as soon as Tilde connects to it.")]
-		[Option(Location = OptionLocation.User, Path = "LuaDebugger/BreakOnConnection", DefaultValue = false)]
+		[Option(Location = OptionLocation.User, Path = "LuaDebugger/BreakOnConnection", DefaultValue = true)]
 		[DisplayName("Break on Connection")]
 		public bool BreakOnConnection
 		{
