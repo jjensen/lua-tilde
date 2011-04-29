@@ -113,7 +113,8 @@ namespace Tilde.LuaDebugger
 
 		void Abort(string message)
 		{
-			OnErrorMessage("Connection error", message);
+			if (!message.Contains("forcibly closed"))
+				OnErrorMessage("Connection error", message);
 			Abort();
 		}
 
