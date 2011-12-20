@@ -1598,8 +1598,18 @@ namespace tilde
 			m_executionMode = DebuggerExecutionMode_Break;
 		}
 
+		// Have we hit a string compiled as Lua code?  If so, step into it.
+		if (debugInfo.source[0] != '@')
+		{
+			if (m_executionMode == DebuggerExecutionMode_Break)
+			{
+				m_previousExecutionMode = DebuggerExecutionMode_Break;
+				m_executionMode = DebuggerExecutionMode_StepInto;
+			}
+		}
+
 		// Have we hit a breakpoint?
-		if(m_executionMode != DebuggerExecutionMode_Break && IsBreakpoint(debugInfo.source, debugInfo.currentline))
+		else if(m_executionMode != DebuggerExecutionMode_Break && IsBreakpoint(debugInfo.source, debugInfo.currentline))
 		{
 			m_previousExecutionMode = m_executionMode;
 			m_executionMode = DebuggerExecutionMode_Break;
