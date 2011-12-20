@@ -29,7 +29,10 @@ THE SOFTWARE.
 
 #include <stdio.h>
 #include <string.h>
-#include <windows.h>
+#if defined(WIN32)
+	#include <windows.h>
+#endif
+
 
 namespace tilde
 {
@@ -47,16 +50,21 @@ namespace tilde
 
 	void assert_exp(const char *exp, const char *file, unsigned line)
 	{
+#if defined(WIN32)
 		_snprintf(s_printBuffer, sizeof(s_printBuffer), "Assertion failed at %s:%d; %s\n", file, line, exp);
 
-		OutputDebugStr(s_printBuffer);
+		OutputDebugString(s_printBuffer);
 		printf(s_printBuffer);
 		DebugBreak();
 		exit(1);
+#else
+		assert(0);
+#endif // defined(WIN32)
 	}
 
 	void assert_msg(const char *file, unsigned line, const char *fmt, ...)
 	{
+#if defined(WIN32)
 		va_list	ap;
 
 		_snprintf(s_printBuffer, sizeof(s_printBuffer), "Assertion failed at %s:%d; ", file, line);
@@ -68,21 +76,26 @@ namespace tilde
 
 		strcat(s_printBuffer, "\n");
 
-		OutputDebugStr(s_printBuffer);
+		OutputDebugString(s_printBuffer);
 		printf(s_printBuffer);
 		DebugBreak();
 		exit(1);
+#else
+		assert(0);
+#endif // defined(WIN32)
 	}
 
 	void print(const char * fmt, ...)
 	{
+#if defined(WIN32)
 		va_list	ap;
 
 		va_start(ap, fmt);
 		vsnprintf(s_printBuffer, sizeof(s_printBuffer), fmt, ap);
 		va_end(ap);
 
-		OutputDebugStr(s_printBuffer);
+		OutputDebugString(s_printBuffer);
 		printf(s_printBuffer);
+#endif // defined(WIN32)
 	}
 }
