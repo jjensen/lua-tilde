@@ -142,6 +142,8 @@ namespace tilde
 
 #endif // TILDE_SWAP_ENDIAN
 
+	void OsSleep(unsigned int millisecs);
+
 }
 
 #endif // TILDE_INCLUDED_HostConfig_h
