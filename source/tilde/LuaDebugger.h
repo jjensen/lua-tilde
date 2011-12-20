@@ -652,9 +652,9 @@ namespace tilde
 
 		void UpdateWatch(LuaWatchInfo * watch, lua_State * lvm, int stackDepth);
 
-		void InitialiseRegistry();
-		void InitialiseValueCache();
-		void InitialiseIDCache();
+		void InitialiseRegistry(lua_State* lvm);
+		void InitialiseValueCache(lua_State* lvm);
+		void InitialiseIDCache(lua_State* lvm);
 		void ClearRegistry();
 
 		void ClearCaches();

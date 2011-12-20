@@ -40,9 +40,11 @@ namespace tilde
 	class LuaDebuggerComms
 	{
 	public:
-		LuaDebuggerComms(lua_State * mainlvm, LuaDebuggerHost * connection);
+		LuaDebuggerComms(LuaDebuggerHost * connection);
 
 		virtual ~LuaDebuggerComms();
+
+		void RegisterState(const char* name, lua_State* lvm);
 
 		struct DownloadedFile
 		{
@@ -78,7 +80,7 @@ namespace tilde
 
 		typedef std::vector<DownloadedFile *>	DownloadedFileCollection;
 
-		lua_State *			GetMainLVM() const	{ return m_mainLVM; }
+//		lua_State *			GetMainLVM() const	{ return m_mainLVM; }
 		LuaDebugger *		GetDebugger() const	{ return m_debugger; }
 		LuaDebuggerHost *	GetHost() const		{ return m_host; }
 
@@ -178,7 +180,9 @@ namespace tilde
 
 
 	private:
-		lua_State				* m_mainLVM;
+		typedef std::map<String, lua_State*> NameToLuaStateMap;
+		NameToLuaStateMap		m_nameToLuaStateMap;
+//		lua_State				* m_mainLVM;
 		LuaDebuggerHost			* m_host;
 		LuaDebugger				* m_debugger;
 		SendMessageBuffer		* m_sendBuffer;

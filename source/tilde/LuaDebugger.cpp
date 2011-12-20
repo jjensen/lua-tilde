@@ -120,15 +120,15 @@ namespace tilde
 		TILDE_ASSERT(m_mainlvm == NULL);
 		TILDE_ASSERT(lvm != NULL);
 
-		if(m_listener->GetHost()->AttachLuaHook(&LuaDebugger::HookCallback, LUA_MASKCALL | LUA_MASKRET | LUA_MASKLINE | LUA_MASKERROR, 0) == false)
+		if(m_listener->GetHost()->AttachLuaHook(lvm, &LuaDebugger::HookCallback, LUA_MASKCALL | LUA_MASKRET | LUA_MASKLINE | LUA_MASKERROR, 0) == false)
 			return false;
 
 		m_mainlvm = lvm;
 		m_breakedlvm = NULL;
 
-		InitialiseRegistry();
-		InitialiseValueCache();
-		InitialiseIDCache();
+		InitialiseRegistry(lvm);
+		InitialiseValueCache(lvm);
+		InitialiseIDCache(lvm);
 
 		return true;
 	}
@@ -143,7 +143,7 @@ namespace tilde
 	{
 		if(m_mainlvm != NULL)
 		{
-			m_listener->GetHost()->DetachLuaHook(&LuaDebugger::HookCallback);
+			m_listener->GetHost()->DetachLuaHook(m_mainlvm, &LuaDebugger::HookCallback);
 
 			ClearRegistry();
 			ClearBreakpoints();
@@ -961,20 +961,20 @@ namespace tilde
 		return result;
 	}
 
-	void LuaDebugger::InitialiseRegistry()
+	void LuaDebugger::InitialiseRegistry(lua_State* lvm)
 	{
-		stack_restore_point restore(m_mainlvm, 4);
+		stack_restore_point restore(lvm, 4);
 
 		// Create the root registry entry
-		lua_pushstring(m_mainlvm, "LuaDebugger");
-		lua_createtable(m_mainlvm, 0, 4);
-		int registryIndex = lua_gettop(m_mainlvm);
+		lua_pushstring(lvm, "LuaDebugger");
+		lua_createtable(lvm, 0, 4);
+		int registryIndex = lua_gettop(lvm);
 
-		lua_pushstring(m_mainlvm, "instance");
-		lua_pushlightuserdata(m_mainlvm, this);
-		lua_settable(m_mainlvm, registryIndex);
+		lua_pushstring(lvm, "instance");
+		lua_pushlightuserdata(lvm, this);
+		lua_settable(lvm, registryIndex);
 
-		lua_settable(m_mainlvm, LUA_REGISTRYINDEX);
+		lua_settable(lvm, LUA_REGISTRYINDEX);
 	}
 
 	void LuaDebugger::ClearRegistry()
@@ -1351,68 +1351,68 @@ namespace tilde
 		return 0;
 	}
 
-	void LuaDebugger::InitialiseValueCache()
+	void LuaDebugger::InitialiseValueCache(lua_State* lvm)
 	{
-		stack_restore_point restore(m_mainlvm, 8);
+		stack_restore_point restore(lvm, 8);
 
 		// Create the metatable
-		lua_createtable(m_mainlvm, 0, 1);
-		int metatableIndex = lua_gettop(m_mainlvm);
-		lua_pushstring(m_mainlvm, "__mode");
-		lua_pushstring(m_mainlvm, "k");
-		lua_settable(m_mainlvm, metatableIndex);
+		lua_createtable(lvm, 0, 1);
+		int metatableIndex = lua_gettop(lvm);
+		lua_pushstring(lvm, "__mode");
+		lua_pushstring(lvm, "k");
+		lua_settable(lvm, metatableIndex);
 
 		// Create the cache
-		lua_newtable(m_mainlvm);
-		int cacheIndex = lua_gettop(m_mainlvm);
+		lua_newtable(lvm);
+		int cacheIndex = lua_gettop(lvm);
 
 		// Assign the metatable
-		lua_pushvalue(m_mainlvm, metatableIndex);
-		lua_setmetatable(m_mainlvm, cacheIndex);
+		lua_pushvalue(lvm, metatableIndex);
+		lua_setmetatable(lvm, cacheIndex);
 
 		// Put it into the registry
-		lua_pushstring(m_mainlvm, "LuaDebugger");
-		lua_gettable(m_mainlvm, LUA_REGISTRYINDEX);
-		int registryIndex = lua_gettop(m_mainlvm);
+		lua_pushstring(lvm, "LuaDebugger");
+		lua_gettable(lvm, LUA_REGISTRYINDEX);
+		int registryIndex = lua_gettop(lvm);
 
-		lua_pushstring(m_mainlvm, "LuaDebugerValueCache");
-		lua_pushvalue(m_mainlvm, cacheIndex);
-		lua_settable(m_mainlvm, registryIndex);
+		lua_pushstring(lvm, "LuaDebugerValueCache");
+		lua_pushvalue(lvm, cacheIndex);
+		lua_settable(lvm, registryIndex);
 
 		// Pop the cache, metatable and registry from the stack
-		lua_pop(m_mainlvm, 3);
+		lua_pop(lvm, 3);
 	}
 
-	void LuaDebugger::InitialiseIDCache()
+	void LuaDebugger::InitialiseIDCache(lua_State* lvm)
 	{
-		stack_restore_point restore(m_mainlvm, 8);
+		stack_restore_point restore(lvm, 8);
 
 		// Create the metatable
-		lua_createtable(m_mainlvm, 0, 1);
-		int metatableIndex = lua_gettop(m_mainlvm);
-		lua_pushstring(m_mainlvm, "__mode");
-		lua_pushstring(m_mainlvm, "v");
-		lua_settable(m_mainlvm, metatableIndex);
+		lua_createtable(lvm, 0, 1);
+		int metatableIndex = lua_gettop(lvm);
+		lua_pushstring(lvm, "__mode");
+		lua_pushstring(lvm, "v");
+		lua_settable(lvm, metatableIndex);
 
 		// Create the cache
-		lua_newtable(m_mainlvm);
-		int cacheIndex = lua_gettop(m_mainlvm);
+		lua_newtable(lvm);
+		int cacheIndex = lua_gettop(lvm);
 
 		// Assign the metatable
-		lua_pushvalue(m_mainlvm, metatableIndex);
-		lua_setmetatable(m_mainlvm, cacheIndex);
+		lua_pushvalue(lvm, metatableIndex);
+		lua_setmetatable(lvm, cacheIndex);
 
 		// Put it into the registry
-		lua_pushstring(m_mainlvm, "LuaDebugger");
-		lua_gettable(m_mainlvm, LUA_REGISTRYINDEX);
-		int registryIndex = lua_gettop(m_mainlvm);
+		lua_pushstring(lvm, "LuaDebugger");
+		lua_gettable(lvm, LUA_REGISTRYINDEX);
+		int registryIndex = lua_gettop(lvm);
 
-		lua_pushstring(m_mainlvm, "LuaDebugerIDCache");
-		lua_pushvalue(m_mainlvm, cacheIndex);
-		lua_settable(m_mainlvm, registryIndex);
+		lua_pushstring(lvm, "LuaDebugerIDCache");
+		lua_pushvalue(lvm, cacheIndex);
+		lua_settable(lvm, registryIndex);
 
 		// Pop the cache, metatable and registry table from the stack
-		lua_pop(m_mainlvm, 3);
+		lua_pop(lvm, 3);
 	}
 
 	LuaDebuggerValue LuaDebugger::LookupValue(lua_State * lvm, int valueIndex)

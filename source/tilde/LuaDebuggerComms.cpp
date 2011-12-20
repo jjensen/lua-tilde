@@ -65,9 +65,9 @@ namespace tilde
 		{ DebuggerMessage_ExCommand,			"ExCommand",		&LuaDebuggerComms::ProcessMessage_ExCommand },
 	};
 
-	LuaDebuggerComms::LuaDebuggerComms(lua_State * mainlvm, LuaDebuggerHost * host) 
+	LuaDebuggerComms::LuaDebuggerComms(LuaDebuggerHost * host) 
 		: 
-			m_mainLVM(mainlvm),
+//			m_mainLVM(NULL),
 			m_host(host),
 			m_debugger(NULL),
 			m_sendBuffer(NULL),
@@ -95,33 +95,82 @@ namespace tilde
 		delete m_sendBuffer;
 	}
 
+	static void InitialiseThreadTable(lua_State* lvm)
+	{
+		// Create the cache
+		lua_newtable(lvm);
+		int cacheIndex = lua_gettop(lvm);
+
+		// Create an entry for the main thread
+		lua_pushthread(lvm);
+		lua_newtable(lvm);
+		int mainTableIndex = lua_gettop(lvm);
+
+		lua_pushstring(lvm, "name");
+		lua_pushstring(lvm, "<<main>>");
+		lua_settable(lvm, mainTableIndex);
+
+		lua_pushstring(lvm, "threadid");
+		lua_pushnumber(lvm, 0);
+		lua_settable(lvm, mainTableIndex);
+
+		lua_pushstring(lvm, "state");
+		lua_pushnumber(lvm, 0);	// Ready
+		lua_settable(lvm, mainTableIndex);
+
+		// Register the main thread in the ThreadTable
+		lua_settable(lvm, cacheIndex);
+
+		// Put the ThreadTable into the registry
+		lua_pushstring(lvm, "ThreadTable");
+		lua_pushvalue(lvm, cacheIndex);
+		lua_settable(lvm, LUA_REGISTRYINDEX);
+
+		// Put the ThreadTable into the globals as well
+		lua_pushstring(lvm, "ThreadTable");
+		lua_pushvalue(lvm, cacheIndex);
+		lua_settable(lvm, LUA_GLOBALSINDEX);
+
+		// Pop the cache and metatable from the stack
+		lua_pop(lvm, 1);
+	}
+
+
+	void LuaDebuggerComms::RegisterState(const char* name, lua_State* lvm)
+	{
+		m_nameToLuaStateMap[name] = lvm;
+//		m_mainLVM = lvm;
+		InitialiseThreadTable(lvm);
+	}
+
 	bool LuaDebuggerComms::Open()
 	{
 		m_lastStateUpdateMode = DebuggerTargetState_Connecting;
 		m_lastStateUpdateThread = 0;
 		m_lastStateUpdateLine = -1;
 
-		if(m_debugger->Connect(m_mainLVM))
+		for (NameToLuaStateMap::iterator it = m_nameToLuaStateMap.begin(); it != m_nameToLuaStateMap.end(); ++it)
 		{
-			CreateMessage_Connect();
-			SendMessages();
-
-			// Wait for the host to set a run mode, and give it a chance to update everything it wants
-			while(m_debugger->GetExecutionMode() == DebuggerExecutionMode_Connecting)
+			if(!m_debugger->Connect((*it).second))
 			{
-				m_host->OnIdle();
-				if(!m_debugger->IsConnected())
-					return false;
+				CreateMessage_Disconnect("The lua debugger cannot attach to the main virtual machine. There may be another debugger connected, or a profiler active.\n");
+				SendMessages();
+				return false;
 			}
+		}
 
-			return true;
-		}
-		else
+		CreateMessage_Connect();
+		SendMessages();
+
+		// Wait for the host to set a run mode, and give it a chance to update everything it wants
+		while(m_debugger->GetExecutionMode() == DebuggerExecutionMode_Connecting)
 		{
-			CreateMessage_Disconnect("The lua debugger cannot attach to the main virtual machine. There may be another debugger connected, or a profiler active.\n");
-			SendMessages();
-			return false;
+			m_host->OnIdle();
+			if(!m_debugger->IsConnected())
+				return false;
 		}
+
+		return true;
 	}
 
 	void LuaDebuggerComms::Close()
@@ -426,81 +475,82 @@ namespace tilde
 	{
 		TILDE_PRINT("LuaDebuggerComms::ProcessMessage_RunSnippet(); executing script...\n");
 
-		LuaDebugger::stack_restore_point restore(m_mainLVM, 8);
+		lua_State* snippetlvm = m_nameToLuaStateMap.begin()->second;
+		LuaDebugger::stack_restore_point restore(snippetlvm, 8);
 
 		// Set up buffers for print spam
-		RunSnippetPrintfHook_lvm = m_mainLVM;
+		RunSnippetPrintfHook_lvm = snippetlvm;
 
-		lua_pushstring(m_mainLVM, "LuaDebugger");
-		lua_gettable(m_mainLVM, LUA_REGISTRYINDEX);
-		int registryIndex = lua_gettop(m_mainLVM);
+		lua_pushstring(snippetlvm, "LuaDebugger");
+		lua_gettable(snippetlvm, LUA_REGISTRYINDEX);
+		int registryIndex = lua_gettop(snippetlvm);
 
-		lua_pushstring(m_mainLVM, "RunSnippetOutput");
-		lua_pushstring(m_mainLVM, "");
-		lua_settable(m_mainLVM, registryIndex);
+		lua_pushstring(snippetlvm, "RunSnippetOutput");
+		lua_pushstring(snippetlvm, "");
+		lua_settable(snippetlvm, registryIndex);
 
 		// Get the message arguments
 		LuaDebuggerObjectID threadid = m_receiveBuffer->Read<LuaDebuggerObjectID>();
 		int stackFrame = m_receiveBuffer->Read<int>();
-		m_receiveBuffer->PushString(m_mainLVM);
-		int snippetIndex = lua_gettop(m_mainLVM);
+		m_receiveBuffer->PushString(snippetlvm);
+		int snippetIndex = lua_gettop(snippetlvm);
 
-		lua_State * lvm = threadid == 0 ? m_mainLVM : m_debugger->LookupThreadID(threadid);
+		lua_State * lvm = threadid == 0 ? snippetlvm : m_debugger->LookupThreadID(threadid);
 		if(lvm != NULL)
 		{
-			const char * buffer = lua_tostring(m_mainLVM, snippetIndex);
+			const char * buffer = lua_tostring(snippetlvm, snippetIndex);
 			if(buffer[0] == '=')
 			{
-				lua_pushstring(m_mainLVM, "return ");
-				lua_pushstring(m_mainLVM, buffer + 1);
-				lua_concat(m_mainLVM, 2);
-				lua_remove(m_mainLVM, snippetIndex);
+				lua_pushstring(snippetlvm, "return ");
+				lua_pushstring(snippetlvm, buffer + 1);
+				lua_concat(snippetlvm, 2);
+				lua_remove(snippetlvm, snippetIndex);
 			}
 
 			// Set hooks
 			m_debugger->EnableHook(false);
 			m_host->AttachPrintfHook(&RunSnippetPrintfHook);
 
-			int resultsIndex = lua_gettop(m_mainLVM);
+			int resultsIndex = lua_gettop(snippetlvm);
 			int results = m_debugger->CallChunk(lvm, stackFrame, "Tilde console snippet", true);	// Pops "return xxx" and pushes result
 
 			// Print the results into the top item on the stack
 			if(results > 0)
 			{
-				lua_getglobal(m_mainLVM, "tostring");
-				int tostringIndex = lua_gettop(m_mainLVM);
+				lua_getglobal(snippetlvm, "tostring");
+				int tostringIndex = lua_gettop(snippetlvm);
 
-				lua_pushstring(m_mainLVM, "");
-				int accumulatorIndex = lua_gettop(m_mainLVM);
+				lua_pushstring(snippetlvm, "");
+				int accumulatorIndex = lua_gettop(snippetlvm);
 
 				for(int i = 0; i < results; i++)
 				{
 					if(i > 0)
-						lua_pushstring(m_mainLVM, ", ");
+						lua_pushstring(snippetlvm, ", ");
 
-					lua_pushvalue(m_mainLVM, tostringIndex);
-					lua_pushvalue(m_mainLVM, resultsIndex + i);
-					lua_call(m_mainLVM, 1, 1);
+					lua_pushvalue(snippetlvm, tostringIndex);
+					lua_pushvalue(snippetlvm, resultsIndex + i);
+					lua_call(snippetlvm, 1, 1);
 
-					lua_concat(m_mainLVM, i == 0 ? 2 : 3);
+					lua_concat(snippetlvm, i == 0 ? 2 : 3);
 				}
 
 				// Replace the results with the concatenated string
-				lua_insert(m_mainLVM, resultsIndex);
-				lua_pop(m_mainLVM, lua_gettop(m_mainLVM) - resultsIndex);
+				lua_insert(snippetlvm, resultsIndex);
+				lua_pop(snippetlvm, lua_gettop(snippetlvm) - resultsIndex);
 			}
 			else if(results == 0)
-				lua_pushstring(m_mainLVM, "");
+				lua_pushstring(snippetlvm, "");
 
 			// Restore hooks
 			m_host->DetachPrintfHook(&RunSnippetPrintfHook);
 			m_debugger->EnableHook(true);
 
 			// Get the output/result strings
-			lua_pushstring(m_mainLVM, "RunSnippetOutput");
-			lua_gettable(m_mainLVM, registryIndex);
-			const char * outputString = lua_tostring(m_mainLVM, -1);
-			const char * resultString = lua_tostring(m_mainLVM, resultsIndex);
+			lua_pushstring(snippetlvm, "RunSnippetOutput");
+			lua_gettable(snippetlvm, registryIndex);
+			const char * outputString = lua_tostring(snippetlvm, -1);
+			const char * resultString = lua_tostring(snippetlvm, resultsIndex);
 
 			CreateMessage_SnippetResult(results >= 0, outputString, resultString);
 		}
@@ -532,28 +582,29 @@ namespace tilde
 	{
 		TILDE_PRINT("LuaDebuggerComms::ProcessMessage_RetrieveAutocompleteOptions(); executing script...\n");
 
-		LuaDebugger::stack_restore_point restore(m_mainLVM, 8);
+		lua_State* autocompletelvm = m_nameToLuaStateMap.begin()->second;
+		LuaDebugger::stack_restore_point restore(autocompletelvm, 8);
 
 		// Get the message arguments
 		int seqid = m_receiveBuffer->Read<int>();
 		LuaDebuggerObjectID threadid = m_receiveBuffer->Read<LuaDebuggerObjectID>();
 		int stackFrame = m_receiveBuffer->Read<int>();
-		m_receiveBuffer->PushString(m_mainLVM);
-		int snippetIndex = lua_gettop(m_mainLVM);
+		m_receiveBuffer->PushString(autocompletelvm);
+		int snippetIndex = lua_gettop(autocompletelvm);
 
-		lua_State * lvm = threadid == 0 ? m_mainLVM : m_debugger->LookupThreadID(threadid);
+		lua_State * lvm = threadid == 0 ? autocompletelvm : m_debugger->LookupThreadID(threadid);
 		if(lvm != NULL)
 		{
-			const char * buffer = lua_tostring(m_mainLVM, snippetIndex);
-			lua_pushstring(m_mainLVM, "return ");
-			lua_pushstring(m_mainLVM, buffer);
-			lua_concat(m_mainLVM, 2);
-			lua_remove(m_mainLVM, snippetIndex);
+			const char * buffer = lua_tostring(autocompletelvm, snippetIndex);
+			lua_pushstring(autocompletelvm, "return ");
+			lua_pushstring(autocompletelvm, buffer);
+			lua_concat(autocompletelvm, 2);
+			lua_remove(autocompletelvm, snippetIndex);
 
 			// Set hooks
 			m_debugger->EnableHook(false);
 
-			int resultsIndex = lua_gettop(m_mainLVM);
+			int resultsIndex = lua_gettop(autocompletelvm);
 			int results = m_debugger->CallChunk(lvm, stackFrame, "Tilde console autocomplete expression", false);	// Pops "return xxx" and pushes result
 
 			// We should get a single table as the result
@@ -1038,7 +1089,8 @@ namespace tilde
 		m_sendBuffer->AppendString("<luaprofile>\n");
 
 		{
-			lua_State * lvm = m_mainLVM;
+			lua_State* profilelvm = m_nameToLuaStateMap.begin()->second;
+			lua_State * lvm = profilelvm;
 			lua_pushstring(lvm, varname);
 			lua_rawget(lvm, LUA_GLOBALSINDEX);
 
