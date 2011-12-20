@@ -109,6 +109,43 @@ namespace Tilde.Framework.Model.ProjectHierarchy
 			return null;
 		}
 
+		public virtual DocumentItem FindHierarchy(string fileName, string hierarchy)
+		{
+			foreach (ProjectItem item in mItems)
+			{
+				string newHierarchy = hierarchy;
+				newHierarchy += item.Label;
+				if (item.mItems.Count > 0)
+					newHierarchy += "/";
+
+				if (fileName.StartsWith(newHierarchy, true, null))
+				{
+					DocumentItem result = item.FindHierarchy(fileName, newHierarchy);
+					if (result != null)
+						return result;
+				}
+			}
+
+			return null;
+		}
+
+		public virtual string CalculateHierarchyForAbsolutePath(string fileName, string hierarchy)
+		{
+			foreach (ProjectItem item in mItems)
+			{
+				string newHierarchy = hierarchy;
+				newHierarchy += item.Label;
+				if (item.mItems.Count > 0)
+					newHierarchy += "/";
+
+				string result = item.CalculateHierarchyForAbsolutePath(fileName, newHierarchy);
+				if (result != null)
+					return result;
+			}
+
+			return null;
+		}
+
 		public virtual void GetFiles(List<string> files)
 		{
 			foreach (ProjectItem item in mItems)

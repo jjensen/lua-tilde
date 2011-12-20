@@ -98,6 +98,22 @@ namespace Tilde.Framework.Model.ProjectHierarchy
 				return base.FindDocument(fileName);
 		}
 
+		public override DocumentItem FindHierarchy(string fileName, string hierarchy)
+		{
+			if (System.String.Compare(fileName, hierarchy, true) == 0)
+				return this;
+			else
+				return base.FindHierarchy(fileName, hierarchy);
+		}
+
+		public override string CalculateHierarchyForAbsolutePath(string fileName, string hierarchy)
+		{
+			if (PathUtils.Compare(fileName, this.AbsoluteFileName) == 0)
+				return hierarchy;
+			else
+				return base.CalculateHierarchyForAbsolutePath(fileName, hierarchy);
+		}
+
 		public override void GetFiles(List<string> files)
 		{
 			files.Add(AbsoluteFileName);

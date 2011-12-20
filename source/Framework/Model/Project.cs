@@ -268,6 +268,28 @@ namespace Tilde.Framework.Model
 			return null;
 		}
 
+		public DocumentItem FindHierarchy(string fileName)
+		{
+			foreach (ProjectDocument projDoc in Documents)
+			{
+				DocumentItem item = projDoc.Root.FindHierarchy(fileName, "");
+				if (item != null)
+					return item;
+			}
+			return null;
+		}
+
+		public string CalculateHierarchyForAbsolutePath(string fileName)
+		{
+			foreach (ProjectDocument projDoc in Documents)
+			{
+				string hierarchy = projDoc.Root.CalculateHierarchyForAbsolutePath(fileName, "");
+				if (hierarchy != null)
+					return hierarchy;
+			}
+			return null;
+		}
+
 		public Folder FindFolder(string label)
 		{
 			foreach (ProjectDocument projDoc in Documents)

@@ -472,6 +472,13 @@ namespace Tilde.LuaDebugger
 					return fileName.Substring(path.Length + 1).Replace('\\', '/');
 				}
 			}
+
+			string hierarchy = Manager.Project.CalculateHierarchyForAbsolutePath(fileName);
+			if (hierarchy != null)
+			{
+				return hierarchy;
+			}
+
 			return sourceFile;
 		}
 
@@ -487,6 +494,14 @@ namespace Tilde.LuaDebugger
 				if (File.Exists(sourceFile))
 					return sourceFile;
 			}
+
+			string hierarchy = fileName.Replace('\\', '/');
+			DocumentItem docItem = Manager.Project.FindHierarchy(hierarchy);
+			if (docItem != null)
+			{
+				return docItem.AbsoluteFileName;
+			}
+
 			return targetFile;
 		}
 
@@ -738,7 +753,9 @@ namespace Tilde.LuaDebugger
 
 		public void ShowSource(string file, int line)
 		{
-			DocumentItem docItem = Manager.Project.FindDocument(file);
+			DocumentItem docItem = Manager.Project.FindHierarchy(file.Replace('\\', '/'));
+			if (docItem == null)
+				docItem = Manager.Project.FindDocument(file);
 			Document doc = docItem != null ? Manager.OpenDocument(docItem) : null;
 			if (doc == null)
 			{
