@@ -29,6 +29,7 @@ THE SOFTWARE.
 
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 extern "C" {
 #include "lauxlib.h"
@@ -55,12 +56,15 @@ namespace tilde
 			m_stepNestedCalls(0),
 			m_localNestedCalls(0),
 			m_nextValueID(1),
-			m_chunkCallInProgress(NULL)
+			m_chunkCallInProgress(NULL),
+			m_normalizedFilename(NULL),
+			m_normalizedFilenameLength(0)
 	{
 	}
 
 	LuaDebugger::~LuaDebugger(void)
 	{
+		delete[] m_normalizedFilename;
 	}
 
 
@@ -199,7 +203,7 @@ namespace tilde
 
 		const char *pTarget = m_listener->GetHost()->LookupTargetFile(file);
 
-		BreakpointInfo * newinfo = new BreakpointInfo(bkptid, pTarget, line);
+		BreakpointInfo * newinfo = new BreakpointInfo(bkptid, NormalizedFilename(pTarget), line);
 		m_breakpoints.push_back(newinfo);
 		
 		m_breakpointMap.insert(std::make_pair(BreakpointKey(newinfo->m_fileName.c_str(), line), newinfo));
@@ -242,7 +246,7 @@ namespace tilde
 
 	int LuaDebugger::FindBreakpoint(const char * file, int line)
 	{
-		BreakpointMap::iterator iter = m_breakpointMap.find(BreakpointKey(file, line));
+		BreakpointMap::iterator iter = m_breakpointMap.find(BreakpointKey(NormalizedFilename(file), line));
 		if(iter == m_breakpointMap.end())
 			return 0;
 		else
@@ -1675,4 +1679,29 @@ namespace tilde
 			m_executionMode = DebuggerExecutionMode_Break;
 		}
 	}
+
+	const char *LuaDebugger::NormalizedFilename(const char* filenameToNormalize)
+	{
+		size_t filenameToNormalizeLength = strlen(filenameToNormalize);
+		if (filenameToNormalizeLength > m_normalizedFilenameLength)
+		{
+			delete[] m_normalizedFilename;
+			m_normalizedFilename = new char[filenameToNormalizeLength + 1];
+			m_normalizedFilenameLength = filenameToNormalizeLength;
+		}
+		char* dest = m_normalizedFilename;
+		const char* src = filenameToNormalize;
+		while (*src)
+		{
+			if (*src == '\\')
+				*dest = '/';
+			else
+				*dest = tolower(*src);
+			++dest;
+			++src;
+		}
+		*dest = 0;
+		return m_normalizedFilename;
+	}
+
 }	// namespace tilde

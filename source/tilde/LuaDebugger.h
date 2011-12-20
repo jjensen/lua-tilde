@@ -206,7 +206,7 @@ namespace tilde
 		{
 			bool operator() (const BreakpointKey & lhs, const BreakpointKey & rhs) const
 			{
-				int diff = stricmp(lhs.m_fileName, rhs.m_fileName);
+				int diff = strcmp(lhs.m_fileName, rhs.m_fileName);
 				if(diff < 0)
 					return true;
 				else if(diff > 0)
@@ -263,7 +263,11 @@ namespace tilde
 		{
 			bool operator() (const IgnoredErrorKey & lhs, const IgnoredErrorKey & rhs) const
 			{
+#if defined(_MSC_VER)
 				int diff = stricmp(lhs.m_fileName, rhs.m_fileName);
+#else
+				int diff = strcasecmp(lhs.m_fileName, rhs.m_fileName);
+#endif // _MSC_VER
 				if(diff < 0)
 					return true;
 				else if(diff > 0)
@@ -740,6 +744,8 @@ namespace tilde
 
 		const char *			ToString(lua_State * lvm, int index);
 
+		const char *			NormalizedFilename(const char* filenameToNormalize);
+
 	private:
 
 		lua_State			* m_mainlvm;
@@ -769,6 +775,9 @@ namespace tilde
 		LuaDebuggerObjectID		m_nextValueID;
 
 		void const *			m_chunkCallInProgress;
+
+		char *					m_normalizedFilename;
+		size_t					m_normalizedFilenameLength;
 
 	};
 
