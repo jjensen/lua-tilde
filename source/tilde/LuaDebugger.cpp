@@ -30,10 +30,12 @@ THE SOFTWARE.
 #include <string.h>
 #include <stdlib.h>
 
+extern "C" {
 #include "lauxlib.h"
 #include "lobject.h"
 #include "lstate.h"
 #include "lapi.h"
+}
 
 #include "tilde/HostConfig.h"
 #include "tilde/LuaDebuggerComms.h"
