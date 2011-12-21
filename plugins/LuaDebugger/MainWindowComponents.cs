@@ -133,7 +133,7 @@ namespace Tilde.LuaDebugger
 
 		private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			mDebugger.Disconnect(false);
+			mDebugger.Disconnect(false, true);
 		}
 
 		private void runToolStripMenuItem_Click(object sender, EventArgs e)
@@ -174,7 +174,7 @@ namespace Tilde.LuaDebugger
 			{
 				HostInfo currHost = mDebugger.ConnectedTarget.HostInfo;
 
-				mDebugger.Disconnect(false);
+				mDebugger.Disconnect(false, false);
 				mDebugger.Connect(currHost);
 			}
 		}

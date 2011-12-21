@@ -128,8 +128,6 @@ namespace Tilde.LuaDebugger
 		/// </summary>
 		private void ThreadMain()
 		{
-			mConnection.Connect(/*this*/);
-
 			List<WaitHandle> handleList = new List<WaitHandle>();
 			handleList.Add(mHostEvent);
 			handleList.Add(mTargetEvent);
@@ -139,6 +137,8 @@ namespace Tilde.LuaDebugger
 
 			while (!m_shutdown)
 			{
+				mConnection.Connect(/*this*/);
+
 				try
 				{
 					// Wait for a signal

@@ -138,14 +138,14 @@ namespace Tilde.LuaSocketConnection
 				try
 				{
 					connection.m_socket.EndConnect(ar);
-					connection.m_asyncConnect.Set();
 				}
-				catch (SocketException ex)
+				catch (SocketException /*ex*/)
 				{
 //					connection.m_target.Abort(String.Format("Network connection to {0}:{1} failed!\r\n{2}", connection.m_info.mHost, connection.m_info.mPort, ex.ToString()));
-					connection.OnConnectionAborted(String.Format("Network connection to {0}:{1} failed!\r\n{2}", connection.m_info.mHost, connection.m_info.mPort, ex.ToString()));
-					return;
+//					connection.OnConnectionAborted(String.Format("Network connection to {0}:{1} failed!\r\n{2}", connection.m_info.mHost, connection.m_info.mPort, ex.ToString()));
+					connection.m_socket = null;
 				}
+				connection.m_asyncConnect.Set();
 			}
 		}
 
@@ -197,10 +197,13 @@ namespace Tilde.LuaSocketConnection
 			lock (m_lock)
 			{
 //				m_target = target;
-				m_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+				if (m_socket == null)
+				{
+					m_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-				// Start an asynchronous connect
-				m_socket.BeginConnect(m_info.mHost, m_info.mPort, new AsyncCallback(ConnectCallback), this);
+					// Start an asynchronous connect
+					m_socket.BeginConnect(m_info.mHost, m_info.mPort, new AsyncCallback(ConnectCallback), this);
+				}
 			}
 		}
 
@@ -216,7 +219,8 @@ namespace Tilde.LuaSocketConnection
 				if (handle == m_asyncConnect)
 				{
 					// Start an asynchronous read
-					m_socket.BeginReceive(m_asyncReadBuffer, 0, m_asyncReadBuffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), this);
+					if (m_socket != null)
+						m_socket.BeginReceive(m_asyncReadBuffer, 0, m_asyncReadBuffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), this);
 				}
 
 				/*

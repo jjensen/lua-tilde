@@ -35,5 +35,6 @@ namespace Tilde.LuaDebugger
 	{
 		HostInfo [] EnumerateDevices();
 		IConnection Connect(HostInfo target);
+		void DisableAutoConnect();
 	}
 }

@@ -46,6 +46,7 @@ namespace Tilde.LuaSocketConnection
 	{
 		DebugManager mDebugger;
 		List<SocketHostInfo> mBookmarkedHosts = new List<SocketHostInfo>();
+		string mAutoConnectTCPHost;
 		Socket mTargetListener;
 
 		private object mLock = new Object();
@@ -154,7 +155,7 @@ namespace Tilde.LuaSocketConnection
 
 		static void Callback(SocketTransport transport, HostInfo hostInfo)
 		{
-			transport.DebugManager.Disconnect(false);
+			transport.DebugManager.Disconnect(false, false);
 			transport.DebugManager.Connect(hostInfo);
 		}
 
@@ -169,11 +170,19 @@ namespace Tilde.LuaSocketConnection
 				if(pair.Length == 2)
 					mBookmarkedHosts.Add(new SocketHostInfo(this, pair[0], Int32.Parse(pair[1])));
 			}
+			mAutoConnectTCPHost = project.GetUserConfiguration("AutoConnectTCPHost");
+			if (mAutoConnectTCPHost != "")
+			{
+				string[] pair = mAutoConnectTCPHost.Split(new char[] { ':' });
+				if (pair.Length == 2)
+					mDebugger.Connect(new SocketHostInfo(this, pair[0], Int32.Parse(pair[1])));
+			}
 		}
 
 		void Manager_ProjectClosed(object sender)
 		{
 			mBookmarkedHosts.Clear();
+			mAutoConnectTCPHost = "";
 		}
 
 		public HostInfo[] EnumerateDevices()
@@ -200,10 +209,20 @@ namespace Tilde.LuaSocketConnection
 				tcpHostInfo = hostInfo as SocketHostInfo;
 
 			if (tcpHostInfo == null)
+			{
+				mDebugger.Manager.Project.SetUserConfiguration("AutoConnectTCPHost", "");
 				return null;
+			}
 			else
+			{
+				mDebugger.Manager.Project.SetUserConfiguration("AutoConnectTCPHost", tcpHostInfo.mHost + ":" + tcpHostInfo.mPort);
 				return new SocketConnection(this, tcpHostInfo);
+			}
+		}
 
+		public virtual void DisableAutoConnect()
+		{
+			mDebugger.Manager.Project.SetUserConfiguration("AutoConnectTCPHost", "");
 		}
 
 		protected SocketHostInfo AddNewConnection()
@@ -220,7 +239,9 @@ namespace Tilde.LuaSocketConnection
 				string[] hostList = mBookmarkedHosts.ConvertAll<string>(delegate(SocketHostInfo value) { return value.ToString(); }).ToArray();
 				string hostString = String.Join(",", hostList);
 				if (mDebugger.Manager.Project != null)
+				{
 					mDebugger.Manager.Project.SetUserConfiguration("TCPHosts", hostString);
+				}
 
 			}
 

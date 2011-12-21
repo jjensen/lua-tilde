@@ -61,6 +61,7 @@ namespace Tilde.LuaDebugger
 	{
 		MainWindowComponents mMainWindowComponents;
 		bool mBuildInProgress = false;
+		HostInfo mHostInfo;
 
 		public DebugManager(IManager manager)
 		{
@@ -196,14 +197,17 @@ namespace Tilde.LuaDebugger
 			if (mConnectedTarget == null)
 			{
 				IConnection connection = hostInfo.Transport.Connect(hostInfo);
+				mHostInfo = hostInfo;
 
 				if (connection != null)
 				{
 					Target target = new Target(this, MainWindow, connection);
 
-					mStatusMessage = new DebuggerStatusDialog("Establishing connection to " + target.HostInfo.ToString() + "...", true);
-					mStatusMessage.Cancel.Click += new EventHandler(StatusMessage_Cancel_Click);
-					mStatusMessage.Show(MainWindow);
+//					mStatusMessage = new DebuggerStatusDialog("Establishing connection to " + target.HostInfo.ToString() + "...", true);
+//					mStatusMessage.Cancel.Click += new EventHandler(StatusMessage_Cancel_Click);
+//					mStatusMessage.Show(MainWindow);
+
+					mManager.SetStatusMessage("Establishing connection to " + target.HostInfo.ToString() + "...", 0);
 
 					SetNotification(Tilde.LuaDebugger.Properties.Resources.SystrayConnected, "Tilde Connecting...");
 
@@ -222,10 +226,13 @@ namespace Tilde.LuaDebugger
 			}
 		}
 
-		public void Disconnect(bool silent)
+		public void Disconnect(bool silent, bool resetAutoConnect)
 		{
 			if (mConnectedTarget != null)
 			{
+				if (resetAutoConnect)
+					mHostInfo.Transport.DisableAutoConnect();
+
 				HideStatusMessage();
 
 				OnDebuggerDisconnecting(mConnectedTarget);
@@ -265,6 +272,8 @@ namespace Tilde.LuaDebugger
 
 				mConnectedTarget = null;
 				mMainWindowComponents.targetStateLabel.Text = "";
+
+                mManager.SetStatusMessage("", 0);
 
 				OnDebuggerDisconnected();
 			}
@@ -561,7 +570,7 @@ namespace Tilde.LuaDebugger
 
 		void StatusMessage_Cancel_Click(object sender, EventArgs e)
 		{
-			Disconnect(false);
+			Disconnect(false, true);
 		}
 
 		void Target_DebugPrint(Target sender, DebugPrintEventArgs args)
@@ -609,8 +618,9 @@ namespace Tilde.LuaDebugger
 
 			if(args.TargetState == TargetState.Disconnected)
 			{
-				Disconnect(false);
+				Disconnect(false, false);
 				mMainWindowComponents.targetStateLabel.Text = "";
+				Connect(mHostInfo);
 			}
 			else if (args.TargetState == TargetState.Connected)
 			{
@@ -788,7 +798,7 @@ namespace Tilde.LuaDebugger
 
 		void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			Disconnect(true);
+			Disconnect(true, false);
 			mMainWindowComponents.notifyIcon.Visible = false;
 		}
 
