@@ -25,7 +25,6 @@ namespace Scintilla.Configuration.SciTE
         private Dictionary<string, string> extentionLanguages = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 		private Dictionary<string, string> languageExtentions = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
         private List<string> languageNames = new List<string>();
-        private int replaceCount = 0;
         
         /// <summary>
         /// 
