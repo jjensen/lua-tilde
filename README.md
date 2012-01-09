@@ -208,7 +208,7 @@ Tilde architecture
 Tilde is implemented using a simple plugin architecture, split across a number 
 of .NET assemblies. Dependencies between Tilde assemblies are shown below.
 
-![](raw/master/doc/assemblies.png)
+![](lua-tilde/raw/master/doc/assemblies.png)
 
 ![](doc/assemblies.png)
 
