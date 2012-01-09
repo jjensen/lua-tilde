@@ -1,4 +1,4 @@
-Web page structure
+ÔªøWeb page structure
 ==================
 - Overview
   * Overview
@@ -64,7 +64,7 @@ Features
    running the normal error handling behaviour is resumed. 
 - _Script downloading and execution_: The _Pending Downloads_ window 
    (View/Debug/Pending Downloads) displays a list of script files that have been 
-   saved or externally modified. Right click on a file and select ìDownloadî to 
+   saved or externally modified. Right click on a file and select ‚ÄúDownload‚Äù to 
    download and execute it on the target. 
 - _Lua console_: The user can interactively execute Lua code on the target, similarly 
    to the standalone `lua` interpreter. If the target is stopped then the script 
@@ -82,9 +82,9 @@ Features
 - _Find and replace_:  Text can be searched for in the current document using a 
    Find and Replace dialog modelled on Visual Studio. The regular expression search 
    is provided by Scintilla, and [documented here](http://scintilla.sourceforge.net/SciTERegEx.html). 
-- _Options_:  The ìTools/OptionsÖî menu command can be used to modify project and user options. 
+- _Options_:  The ‚ÄúTools/Options‚Ä¶‚Äù menu command can be used to modify project and user options. 
 - _Find file in project_:  A searchable list of all the files in the project can 
-   be accessed via the menu ìWindow/Find File in Projectî or the shortcut Shift-Alt-O. 
+   be accessed via the menu ‚ÄúWindow/Find File in Project‚Äù or the shortcut Shift-Alt-O. 
    Enter a substring in the text box to filter the list; this also accepts the wildcards 
    `*` (match anything) and `?` (match any character). 
 
