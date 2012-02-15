@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TildeApp", "source\TildeApp\TildeApp.csproj", "{B901025F-DFAF-4F2A-94AF-FD59E9E0406D}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{0D01E013-9AAF-4C0D-A1C5-F36ED5466CFE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{D382E11B-5D50-49F7-8B8F-F37BDB92CB88}"
@@ -10,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorePlugins", "source\CorePlugins\CorePlugins.csproj", "{4DD01681-593A-43DD-BFBE-B405C8D959F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "source\Framework\Framework.csproj", "{3B60B35B-C252-4B2C-A11E-853C3742A357}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TildeApp", "source\TildeApp\TildeApp.csproj", "{B901025F-DFAF-4F2A-94AF-FD59E9E0406D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScintillaNET", "lib\ScintillaNET\v6-b1.1\ScintillaNET.csproj", "{F9B6DABD-BBC1-4638-8CE6-A5C9506BFDCB}"
 EndProject

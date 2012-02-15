@@ -46,8 +46,6 @@ namespace Tilde.Framework.Controls
 			}
 		}
 
-		MyWebBrowserSiteBase m_browserSite;
-
 		public MyWebBrowser()
 		{
 			InitializeComponent();
