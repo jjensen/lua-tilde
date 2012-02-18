@@ -318,7 +318,7 @@ namespace Tilde.LuaDebugger
 				bkpt = new BreakpointDetails(file, line, true);
 				mBreakpoints.Add(bkpt);
 
-				if (mConnectedTarget != null)
+				if (mTargetStatus != TargetState.Disconnected  &&  mConnectedTarget != null)
 				{
 					bkpt.TargetState = BreakpointState.PendingAdd;
 					mConnectedTarget.AddBreakpoint(file, line, bkpt.ID);
@@ -333,13 +333,13 @@ namespace Tilde.LuaDebugger
 			BreakpointDetails bkpt = FindBreakpoint(file, line);
 			if (bkpt != null)
 			{
-				if (bkpt.Enabled && mConnectedTarget != null && bkpt.TargetState != BreakpointState.PendingRemove)
+				if (mTargetStatus != TargetState.Disconnected && bkpt.Enabled && mConnectedTarget != null && bkpt.TargetState != BreakpointState.PendingRemove)
 				{
 					bkpt.TargetState = BreakpointState.PendingRemove;
 					mConnectedTarget.RemoveBreakpoint(bkpt.ID);
 					OnBreakpointChanged(bkpt, true);
 				}
-				else if(mConnectedTarget == null)
+				else if(mTargetStatus == TargetState.Disconnected || mConnectedTarget == null)
 				{
 					mBreakpoints.Remove(bkpt);
 					OnBreakpointChanged(bkpt, false);

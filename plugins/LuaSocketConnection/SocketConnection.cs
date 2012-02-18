@@ -237,14 +237,17 @@ namespace Tilde.LuaSocketConnection
 		{
 			lock (m_lock)
 			{
-				if (m_socket.Connected)
-				{
-					m_socket.Shutdown(SocketShutdown.Both);
-					m_socket.Disconnect(false);
-				}
+                if (m_socket != null)
+                {
+                    if (m_socket.Connected)
+                    {
+                        m_socket.Shutdown(SocketShutdown.Both);
+                        m_socket.Disconnect(false);
+                    }
 
-				m_socket.Close();
-				m_socket = null;
+                    m_socket.Close();
+                    m_socket = null;
+                }
 			}
 		}
 
