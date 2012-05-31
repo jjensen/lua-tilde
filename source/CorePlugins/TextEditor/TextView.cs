@@ -102,6 +102,8 @@ namespace Tilde.CorePlugins.TextEditor
 			scintillaControl.UseMonospaceFont(TextPlugin.ScintillaProperties.GetByKey("font.monospace"));
 			scintillaControl.TabWidth = 4;
 
+            scintillaControl.EndOfLineMode = Scintilla.Enums.EndOfLine.LF;
+
 			foreach (string param in s_propertiesToForward)
 			{
 				if(TextPlugin.ScintillaProperties.ContainsKey(param))
