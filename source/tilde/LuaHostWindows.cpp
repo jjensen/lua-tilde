@@ -130,6 +130,8 @@ void OsSleep(unsigned int millisecs)
 {
 #if defined(WIN32)
 	Sleep(millisecs);
+#elif defined(__CELLOS_LV2__)
+	sys_timer_usleep( (millisecs) * 1000 );
 #endif // defined(WIN32)
 }
 
@@ -375,7 +377,6 @@ void LuaHostWindows::ReceiveExCommand(const char * command, int datalen, tilde::
 
 void LuaHostWindows::OnIdle()
 {
-	OsSleep(10);
 	Poll();
 }
 
