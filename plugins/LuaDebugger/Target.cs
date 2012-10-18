@@ -48,6 +48,7 @@ namespace Tilde.LuaDebugger
 		StateUpdateEventArgs mLastUpdateMessage;
 		ReceiveMessageBuffer m_readBuffer;
 		SendMessageBuffer m_writeBuffer;
+		int m_callingProcessId;
 
 		private object m_lock = new object();
 
@@ -248,6 +249,7 @@ namespace Tilde.LuaDebugger
 			// Get the object sizes from the target
 			int sizeofObjectID = m_readBuffer.ReadInt32();
 			int sizeofNumber = m_readBuffer.ReadInt32();
+			m_callingProcessId = m_readBuffer.ReadInt32();
 
 			m_readBuffer.SizeofObjectID = sizeofObjectID;
 			m_readBuffer.SizeofNumber = sizeofNumber;
@@ -686,12 +688,21 @@ namespace Tilde.LuaDebugger
 			);
 		}
 
+		[System.Runtime.InteropServices.DllImport("user32.dll")]
+		static extern bool SetForegroundWindow(IntPtr hWnd);
+
 		public void Run(ExecutionMode mode)
 		{
 			AsyncInvoke(delegate()
 				{
 					CreateMessage_Run(mode);
 					SendMessages();
+
+					System.Diagnostics.Process bProcess = System.Diagnostics.Process.GetProcessById(this.m_callingProcessId);
+					if (bProcess != null)
+					{
+						SetForegroundWindow(bProcess.MainWindowHandle);
+					}
 				}
 			);
 		}

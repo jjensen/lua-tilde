@@ -33,7 +33,7 @@ namespace Tilde.LuaDebugger
 {
 	public class Protocol
 	{
-		public const int Version = 18;
+		public const int Version = 19;
 	}
 
 	[Flags]
