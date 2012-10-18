@@ -1059,6 +1059,7 @@ namespace Tilde.TildeApp
 		public void FlashMainWindow()
 		{
 			Win32.FlashWindow(mMainWindow.Handle);
+			mMainWindow.Activate();
 		}
 
 		public void ShowMessages(string type)
