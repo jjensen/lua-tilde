@@ -146,22 +146,19 @@ namespace Tilde.LuaDebugger
 					int signalledIndex = WaitHandle.WaitAny(handleArray);
 					WaitHandle signalledHandle = handleArray[signalledIndex];
 
-					lock (m_lock)
+					if (signalledHandle == mHostEvent)
 					{
-						if (signalledHandle == mHostEvent)
-						{
-							// Process any messages that have been sent from the debugger
-							ProcessEvents();
-						}
-						else if(signalledHandle == mTargetEvent)
-						{
-							// Process any messages that have been sent from the target
-							ProcessMessages();
-						}
-						else
-						{
-							mConnection.OnSignalled(signalledHandle);
-						}
+						// Process any messages that have been sent from the debugger
+						ProcessEvents();
+					}
+					else if(signalledHandle == mTargetEvent)
+					{
+						// Process any messages that have been sent from the target
+						ProcessMessages();
+					}
+					else
+					{
+						mConnection.OnSignalled(signalledHandle);
 					}
 				}
 				catch (TargetException ex)
@@ -197,41 +194,44 @@ namespace Tilde.LuaDebugger
 
 		internal void ProcessMessages()
 		{
-			if (m_readBuffer.DataLength > 0)
+			lock (m_lock)
 			{
-				// Try and process as many complete messages as possible
-				m_readBuffer.BeginRead();
-				while (m_readBuffer.DataAvailable > 0 && !m_shutdown)
+				if (m_readBuffer.DataLength > 0)
 				{
-					int msgstart = m_readBuffer.Position;
-					int msglen = m_readBuffer.PeekInt32();
-					if (m_readBuffer.DataAvailable < msglen)
-						break;
-
-					m_readBuffer.BeginMessage();
-					TargetMessage cmd = (TargetMessage)m_readBuffer.ReadInt32();
-					switch (cmd)
+					// Try and process as many complete messages as possible
+					m_readBuffer.BeginRead();
+					while (m_readBuffer.DataAvailable > 0 && !m_shutdown)
 					{
-						case TargetMessage.Connect: ProcessMessage_Connect(); break;
-						case TargetMessage.Disconnect: ProcessMessage_Disconnect(); break;
-						case TargetMessage.ErrorMessage: ProcessMessage_ErrorMessage(); break;
-						case TargetMessage.StateUpdate: ProcessMessage_StateUpdate(); break;
-						case TargetMessage.BreakpointAdded: ProcessMessage_BreakpointAdded(); break;
-						case TargetMessage.BreakpointRemoved: ProcessMessage_BreakpointRemoved(); break;
-						case TargetMessage.CallstackUpdate: ProcessMessage_CallstackUpdate(); break;
-						case TargetMessage.ValueCached: ProcessMessage_ValueCached(); break;
-						case TargetMessage.LocalsUpdate: ProcessMessage_LocalsUpdate(); break;
-						case TargetMessage.WatchUpdate: ProcessMessage_WatchUpdate(); break;
-						case TargetMessage.ThreadsUpdate: ProcessMessage_ThreadsUpdate(); break;
-						case TargetMessage.UploadFile: ProcessMessage_UploadFile(); break;
-						case TargetMessage.SnippetResult: ProcessMessage_SnippetResult(); break;
-						case TargetMessage.AutocompleteOptions: ProcessMessage_AutocompleteOptions(); break;
-						case TargetMessage.ExMessage: ProcessMessage_ExMessage(); break;
-					}
-					m_readBuffer.EndMessage();
-				}
+						int msgstart = m_readBuffer.Position;
+						int msglen = m_readBuffer.PeekInt32();
+						if (m_readBuffer.DataAvailable < msglen)
+							break;
 
-				m_readBuffer.EndRead();
+						m_readBuffer.BeginMessage();
+						TargetMessage cmd = (TargetMessage)m_readBuffer.ReadInt32();
+						switch (cmd)
+						{
+							case TargetMessage.Connect: ProcessMessage_Connect(); break;
+							case TargetMessage.Disconnect: ProcessMessage_Disconnect(); break;
+							case TargetMessage.ErrorMessage: ProcessMessage_ErrorMessage(); break;
+							case TargetMessage.StateUpdate: ProcessMessage_StateUpdate(); break;
+							case TargetMessage.BreakpointAdded: ProcessMessage_BreakpointAdded(); break;
+							case TargetMessage.BreakpointRemoved: ProcessMessage_BreakpointRemoved(); break;
+							case TargetMessage.CallstackUpdate: ProcessMessage_CallstackUpdate(); break;
+							case TargetMessage.ValueCached: ProcessMessage_ValueCached(); break;
+							case TargetMessage.LocalsUpdate: ProcessMessage_LocalsUpdate(); break;
+							case TargetMessage.WatchUpdate: ProcessMessage_WatchUpdate(); break;
+							case TargetMessage.ThreadsUpdate: ProcessMessage_ThreadsUpdate(); break;
+							case TargetMessage.UploadFile: ProcessMessage_UploadFile(); break;
+							case TargetMessage.SnippetResult: ProcessMessage_SnippetResult(); break;
+							case TargetMessage.AutocompleteOptions: ProcessMessage_AutocompleteOptions(); break;
+							case TargetMessage.ExMessage: ProcessMessage_ExMessage(); break;
+						}
+						m_readBuffer.EndMessage();
+					}
+
+					m_readBuffer.EndRead();
+				}
 			}
 		}
 
